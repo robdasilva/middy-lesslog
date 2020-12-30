@@ -1,6 +1,6 @@
 {
   "name": "middy-lesslog",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Middy middleware for `lesslog`, a teeny-tiny and severless-ready logging utility.",
   "author": "Robert Schweizer <mail@robertschweizer.me> (http://robertschweizer.me)",
   "homepage": "https://github.com/rschweizer/middy-lesslog#readme",
