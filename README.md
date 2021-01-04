@@ -9,8 +9,10 @@ Using [`lesslog`](https://github.com/rschweizer/lesslog) however this debug info
 ## Installation
 
 ```shell
-$ npm install middy-lesslog
+$ npm install lesslog middy-lesslog
 ```
+
+_Note: `lesslog` is a peer dependency of `middy-lesslog`._
 
 ## Usage
 
