@@ -32,3 +32,7 @@ export const handler = middy(handler).use(log())
 ### Configuration
 
 There are no configuration options so far. Reach out or open an issue, if you want to see a specific option to be configurable!
+
+### Debug
+
+If the `DEBUG` environment variable is set to either `'1'`, `'on'`, `'true'`, or `'yes'`, the incoming event and outgoing response will not be buffered internally, but instead directly written to `process.env.stdout`. This behavior is built-in to `lesslog`.
