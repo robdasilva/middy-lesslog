@@ -7,29 +7,25 @@ import {
   untag,
 } from 'lesslog'
 
-export default function log(): Required<middy.MiddlewareObject<any, any>> {
+export default function log(): Required<middy.MiddlewareObj> {
   return {
-    after({ response }, next) {
+    after({ response }) {
       logDebug('Response', { response })
       logClear()
       untag()
-      next()
     },
-    before({ context, event }, next) {
+    before({ context, event }) {
       tag(context.awsRequestId)
       logDebug('Request', { context, event })
-      next()
     },
-    onError({ error }, next) {
+    onError({ error }) {
       if (error) {
         const { message, stack, ...details } = error
 
         logError(message, { error: { ...details, message, stack } })
         untag()
 
-        next(error)
-      } else {
-        next()
+        throw error
       }
     },
   }

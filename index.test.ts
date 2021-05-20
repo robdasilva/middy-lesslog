@@ -23,13 +23,9 @@ describe('log', () => {
       const context = { awsRequestId: Symbol('awsRequestId') }
       const event = Symbol('event')
       const response = Symbol('response')
-      const next = jest.fn()
 
       expect(
-        log().after(
-          { context, event, response } as any as middy.HandlerLambda,
-          next
-        )
+        log().after({ context, event, response } as any as middy.Request)
       ).toBeUndefined()
 
       expect(logDebug).toHaveBeenCalledTimes(1)
@@ -40,9 +36,6 @@ describe('log', () => {
 
       expect(untag).toHaveBeenCalledTimes(1)
       expect(untag).toHaveBeenCalledWith()
-
-      expect(next).toHaveBeenCalledTimes(1)
-      expect(next).toHaveBeenCalledWith()
     })
   })
 
@@ -54,10 +47,9 @@ describe('log', () => {
     it('logs event', () => {
       const context = { awsRequestId: Symbol('awsRequestId') }
       const event = Symbol('event')
-      const next = jest.fn()
 
       expect(
-        log().before({ context, event } as any as middy.HandlerLambda, next)
+        log().before({ context, event } as any as middy.Request)
       ).toBeUndefined()
 
       expect(logDebug).toHaveBeenCalledTimes(1)
@@ -65,9 +57,6 @@ describe('log', () => {
 
       expect(tag).toHaveBeenCalledTimes(1)
       expect(tag).toHaveBeenCalledWith(context.awsRequestId)
-
-      expect(next).toHaveBeenCalledTimes(1)
-      expect(next).toHaveBeenCalledWith()
     })
   })
 
@@ -80,16 +69,12 @@ describe('log', () => {
       const context = { awsRequestId: Symbol('awsRequestId') }
       const event = Symbol('event')
       const details = Symbol('details')
-      const next = jest.fn()
 
       const error = Object.assign(new Error('‾\\_(ツ)_/‾'), { details })
 
-      expect(
-        log().onError(
-          { context, error, event } as any as middy.HandlerLambda,
-          next
-        )
-      ).toBeUndefined()
+      expect(() =>
+        log().onError({ context, error, event } as any as middy.Request)
+      ).toThrow(error)
 
       expect(logError).toHaveBeenCalledTimes(1)
       expect(logError).toHaveBeenCalledWith(error.message, {
@@ -98,24 +83,17 @@ describe('log', () => {
 
       expect(untag).toHaveBeenCalledTimes(1)
       expect(untag).toHaveBeenCalledWith()
-
-      expect(next).toHaveBeenCalledTimes(1)
-      expect(next).toHaveBeenCalledWith(error)
     })
 
-    it('invokes next middleware if no error', () => {
+    it('does nothing if no error', () => {
       const context = Symbol('context')
       const event = Symbol('event')
-      const next = jest.fn()
 
-      expect(
-        log().onError({ context, event } as any as middy.HandlerLambda, next)
-      ).toBeUndefined()
+      expect(() =>
+        log().onError({ context, event } as any as middy.Request)
+      ).not.toThrow()
 
       expect(logError).not.toHaveBeenCalled()
-
-      expect(next).toHaveBeenCalledTimes(1)
-      expect(next).toHaveBeenCalledWith()
     })
   })
 })
