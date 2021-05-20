@@ -1,10 +1,10 @@
 # middy-lesslog
 
-**_Middy middleware wrapper for [`lesslog`](https://github.com/rschweizer/lesslog#readme)_**
+**_Middy middleware wrapper for [`lesslog`](https://github.com/robdasilva/lesslog#readme)_**
 
 The middleware registers `before`, `after` and `onError` handlers to log the incoming event, outgoing response or thrown error respectively.
 
-Using [`lesslog`](https://github.com/rschweizer/lesslog) however this debug information will not be logged immediately, but buffered internally. Once an error is thrown any buffered logs will be emitted, preserving their original timestamp and context. No debug information is lost, while still maintaining clutter-free logs the rest of the time. You can learn more about how `lesslog` processes your logs by reading its [documentation](https://github.com/rschweizer/lesslog#readme).
+Using [`lesslog`](https://github.com/robdasilva/lesslog) however this debug information will not be logged immediately, but buffered internally. Once an error is thrown any buffered logs will be emitted, preserving their original timestamp and context. No debug information is lost, while still maintaining clutter-free logs the rest of the time. You can learn more about how `lesslog` processes your logs by reading its [documentation](https://github.com/robdasilva/lesslog#readme).
 
 ## Installation
 

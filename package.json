@@ -2,8 +2,8 @@
   "name": "middy-lesslog",
   "version": "1.0.2",
   "description": "Middy middleware for `lesslog`, a teeny-tiny and severless-ready logging utility.",
-  "author": "Robert Schweizer <mail@robertschweizer.me> (http://robertschweizer.me)",
-  "homepage": "https://github.com/rschweizer/middy-lesslog#readme",
+  "author": "Robert Da Silva <mail@robdasilva.com> (https://robdasilva.com)",
+  "homepage": "https://github.com/robdasilva/middy-lesslog#readme",
   "license": "MIT",
   "keywords": [
     "aws",
@@ -38,10 +38,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/rschweizer/middy-lesslog.git"
+    "url": "git+https://github.com/robdasilva/middy-lesslog.git"
   },
   "bugs": {
-    "url": "https://github.com/rschweizer/middy-lesslog/issues"
+    "url": "https://github.com/robdasilva/middy-lesslog/issues"
   },
   "devDependencies": {
     "@types/aws-lambda": "^8.10.76",
