@@ -7,13 +7,7 @@ import {
   untag,
 } from 'lesslog'
 
-interface ILogMiddyMiddleware {
-  after: middy.MiddlewareFunction<any, any>
-  before: middy.MiddlewareFunction<any, any>
-  onError: middy.MiddlewareFunction<any, any>
-}
-
-export default function log(): ILogMiddyMiddleware {
+export default function log(): Required<middy.MiddlewareObject<any, any>> {
   return {
     after({ response }, next) {
       logDebug('Response', { response })
