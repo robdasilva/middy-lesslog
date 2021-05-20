@@ -9,7 +9,6 @@ module.exports = {
     'plugin:jest/all',
     'plugin:@typescript-eslint/recommended',
     'plugin:prettier/recommended',
-    'prettier/@typescript-eslint',
   ],
   overrides: [
     {
@@ -21,7 +20,7 @@ module.exports = {
     },
   ],
   parser: '@typescript-eslint/parser',
-  plugins: ['@typescript-eslint', 'jest', 'prettier'],
+  plugins: ['@typescript-eslint', 'jest'],
   rules: {
     '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/naming-convention': [

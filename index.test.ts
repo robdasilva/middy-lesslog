@@ -27,7 +27,7 @@ describe('log', () => {
 
       expect(
         log().after(
-          ({ context, event, response } as any) as middy.HandlerLambda,
+          { context, event, response } as any as middy.HandlerLambda,
           next
         )
       ).toBeUndefined()
@@ -57,7 +57,7 @@ describe('log', () => {
       const next = jest.fn()
 
       expect(
-        log().before(({ context, event } as any) as middy.HandlerLambda, next)
+        log().before({ context, event } as any as middy.HandlerLambda, next)
       ).toBeUndefined()
 
       expect(logDebug).toHaveBeenCalledTimes(1)
@@ -86,7 +86,7 @@ describe('log', () => {
 
       expect(
         log().onError(
-          ({ context, error, event } as any) as middy.HandlerLambda,
+          { context, error, event } as any as middy.HandlerLambda,
           next
         )
       ).toBeUndefined()
@@ -109,7 +109,7 @@ describe('log', () => {
       const next = jest.fn()
 
       expect(
-        log().onError(({ context, event } as any) as middy.HandlerLambda, next)
+        log().onError({ context, event } as any as middy.HandlerLambda, next)
       ).toBeUndefined()
 
       expect(logError).not.toHaveBeenCalled()
