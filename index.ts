@@ -24,8 +24,6 @@ export default function log(): Required<middy.MiddlewareObj> {
 
         logError(message, { error: { ...details, message, stack } })
         untag()
-
-        throw error
       }
     },
   }

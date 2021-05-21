@@ -72,9 +72,9 @@ describe('log', () => {
 
       const error = Object.assign(new Error('‾\\_(ツ)_/‾'), { details })
 
-      expect(() =>
+      expect(
         log().onError({ context, error, event } as any as middy.Request)
-      ).toThrow(error)
+      ).toBeUndefined()
 
       expect(logError).toHaveBeenCalledTimes(1)
       expect(logError).toHaveBeenCalledWith(error.message, {
@@ -89,9 +89,9 @@ describe('log', () => {
       const context = Symbol('context')
       const event = Symbol('event')
 
-      expect(() =>
+      expect(
         log().onError({ context, event } as any as middy.Request)
-      ).not.toThrow()
+      ).toBeUndefined()
 
       expect(logError).not.toHaveBeenCalled()
     })
