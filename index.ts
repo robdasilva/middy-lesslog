@@ -7,16 +7,32 @@ import {
   untag,
 } from 'lesslog'
 
-export default function log(): Required<middy.MiddlewareObj> {
+const defaultOptions = {
+  request: true,
+  response: true,
+}
+
+type Options = {
+  request?: boolean
+  response?: boolean
+}
+
+export default function log(opts?: Options): Required<middy.MiddlewareObj> {
+  const options = { ...defaultOptions, ...opts }
+
   return {
     after({ response }) {
-      logDebug('Response', { response })
+      if (options.response) {
+        logDebug('Response', { response })
+      }
       logClear()
       untag()
     },
     before({ context, event }) {
       tag(context.awsRequestId)
-      logDebug('Request', { context, event })
+      if (options.request) {
+        logDebug('Request', { context, event })
+      }
     },
     onError({ error }) {
       if (error) {

@@ -19,7 +19,7 @@ describe('log', () => {
       ;(untag as jest.Mock).mockClear()
     })
 
-    it('logs event', () => {
+    it('logs response when no options given', () => {
       const context = { awsRequestId: Symbol('awsRequestId') }
       const event = Symbol('event')
       const response = Symbol('response')
@@ -37,14 +37,60 @@ describe('log', () => {
       expect(untag).toHaveBeenCalledTimes(1)
       expect(untag).toHaveBeenCalledWith()
     })
+
+    it('logs response when response set to true via options', () => {
+      const context = { awsRequestId: Symbol('awsRequestId') }
+      const event = Symbol('event')
+      const response = Symbol('response')
+
+      expect(
+        log({ response: true }).after({
+          context,
+          event,
+          response,
+        } as any as middy.Request)
+      ).toBeUndefined()
+
+      expect(logDebug).toHaveBeenCalledTimes(1)
+      expect(logDebug).toHaveBeenCalledWith('Response', { response })
+
+      expect(logClear).toHaveBeenCalledTimes(1)
+      expect(logClear).toHaveBeenCalledWith()
+
+      expect(untag).toHaveBeenCalledTimes(1)
+      expect(untag).toHaveBeenCalledWith()
+    })
+
+    it('does not log response when request set to false via options', () => {
+      const context = { awsRequestId: Symbol('awsRequestId') }
+      const event = Symbol('event')
+      const response = Symbol('response')
+
+      expect(
+        log({ response: false }).after({
+          context,
+          event,
+          response,
+        } as any as middy.Request)
+      ).toBeUndefined()
+
+      expect(logDebug).not.toHaveBeenCalled()
+
+      expect(logClear).toHaveBeenCalledTimes(1)
+      expect(logClear).toHaveBeenCalledWith()
+
+      expect(untag).toHaveBeenCalledTimes(1)
+      expect(untag).toHaveBeenCalledWith()
+    })
   })
 
   describe('before', () => {
     afterEach(() => {
       ;(logDebug as jest.Mock).mockClear()
+      ;(tag as jest.Mock).mockClear()
     })
 
-    it('logs event', () => {
+    it('logs event when no options given', () => {
       const context = { awsRequestId: Symbol('awsRequestId') }
       const event = Symbol('event')
 
@@ -54,6 +100,41 @@ describe('log', () => {
 
       expect(logDebug).toHaveBeenCalledTimes(1)
       expect(logDebug).toHaveBeenCalledWith('Request', { context, event })
+
+      expect(tag).toHaveBeenCalledTimes(1)
+      expect(tag).toHaveBeenCalledWith(context.awsRequestId)
+    })
+
+    it('logs event when request set to true via options', () => {
+      const context = { awsRequestId: Symbol('awsRequestId') }
+      const event = Symbol('event')
+
+      expect(
+        log({ request: true }).before({
+          context,
+          event,
+        } as any as middy.Request)
+      ).toBeUndefined()
+
+      expect(logDebug).toHaveBeenCalledTimes(1)
+      expect(logDebug).toHaveBeenCalledWith('Request', { context, event })
+
+      expect(tag).toHaveBeenCalledTimes(1)
+      expect(tag).toHaveBeenCalledWith(context.awsRequestId)
+    })
+
+    it('does not log event when request set to false via options', () => {
+      const context = { awsRequestId: Symbol('awsRequestId') }
+      const event = Symbol('event')
+
+      expect(
+        log({ request: false }).before({
+          context,
+          event,
+        } as any as middy.Request)
+      ).toBeUndefined()
+
+      expect(logDebug).not.toHaveBeenCalled()
 
       expect(tag).toHaveBeenCalledTimes(1)
       expect(tag).toHaveBeenCalledWith(context.awsRequestId)
