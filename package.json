@@ -31,18 +31,22 @@
   "scripts": {
     "build": "tsc && prettier --write index.d.ts index.js",
     "lint": "eslint . --ext .js,.ts --ignore-path .gitignore",
-    "prepare": "husky install && npm run lint && npm run test && npm run build",
-    "preversion": "npm run lint && npm run test",
+    "prepare": "husky install && pnpm run lint && pnpm run test && pnpm run build",
+    "preversion": "pnpm run lint && pnpm run test",
     "postversion": "git push && git push --tags",
     "test": "jest"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/robdasilva/middy-lesslog.git"
+    "url": "https://github.com/robdasilva/middy-lesslog.git"
   },
   "bugs": {
     "url": "https://github.com/robdasilva/middy-lesslog/issues"
   },
+  "engines": {
+    "node": ">=16"
+  },
+  "packageManager": "pnpm@8.15.5+sha256.4b4efa12490e5055d59b9b9fc9438b7d581a6b7af3b5675eb5c5f447cee1a589",
   "devDependencies": {
     "@types/aws-lambda": "^8.10.81",
     "@types/jest": "^26.0.24",
