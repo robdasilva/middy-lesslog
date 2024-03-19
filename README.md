@@ -17,18 +17,18 @@ _Note: `lesslog` is a peer dependency of `middy-lesslog`._
 ## Usage
 
 ```javascript
-import middy from '@middy/core'
-import log from 'middy-lesslog'
+import middy from "@middy/core";
+import log from "middy-lesslog";
 
 async function handler(event, context) {
   // Do something meaningful
 
   return {
     statusCode: 200,
-  }
+  };
 }
 
-export const handler = middy(handler).use(log())
+export const handler = middy(handler).use(log());
 ```
 
 ### Configuration
