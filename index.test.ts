@@ -6,7 +6,7 @@ import {
   tag,
   untag,
 } from "lesslog";
-import log from "./index";
+import log from "./index.ts";
 
 jest.mock("lesslog");
 
