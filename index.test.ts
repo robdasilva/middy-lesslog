@@ -25,7 +25,7 @@ describe("log", () => {
       const response = Symbol("response");
 
       expect(
-        log().after({ context, event, response } as any as middy.Request),
+        log().after({ context, event, response } as unknown as middy.Request),
       ).toBeUndefined();
 
       expect(logDebug).toHaveBeenCalledTimes(1);
@@ -49,7 +49,7 @@ describe("log", () => {
       const event = Symbol("event");
 
       expect(
-        log().before({ context, event } as any as middy.Request),
+        log().before({ context, event } as unknown as middy.Request),
       ).toBeUndefined();
 
       expect(logDebug).toHaveBeenCalledTimes(1);
@@ -73,7 +73,7 @@ describe("log", () => {
       const error = Object.assign(new Error("‾\\_(ツ)_/‾"), { details });
 
       expect(
-        log().onError({ context, error, event } as any as middy.Request),
+        log().onError({ context, error, event } as unknown as middy.Request),
       ).toBeUndefined();
 
       expect(logError).toHaveBeenCalledTimes(1);
@@ -90,7 +90,7 @@ describe("log", () => {
       const event = Symbol("event");
 
       expect(
-        log().onError({ context, event } as any as middy.Request),
+        log().onError({ context, event } as unknown as middy.Request),
       ).toBeUndefined();
 
       expect(logError).not.toHaveBeenCalled();
