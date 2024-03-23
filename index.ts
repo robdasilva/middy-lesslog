@@ -1,30 +1,34 @@
-import middy from "@middy/core";
-import {
-  clear as logClear,
-  debug as logDebug,
-  error as logError,
-  tag,
-  untag,
-} from "lesslog";
+import type middy from "@middy/core";
+import log from "lesslog";
 
-export default function log(): Required<middy.MiddlewareObj> {
+function logError({ message, stack, ...details }: Error) {
+  log.error(message, { error: { ...details, message, stack } });
+}
+
+export default function lesslogMiddleware(): Required<middy.MiddlewareObj> {
   return {
-    after({ response }) {
-      logDebug("Response", { response });
-      logClear();
-      untag();
+    after({ error, response }) {
+      log.debug("Response", { response });
+
+      if (error) {
+        logError(error);
+      } else {
+        log.clear();
+      }
+
+      log.label = "";
     },
     before({ context, event }) {
-      tag(context.awsRequestId);
-      logDebug("Request", { context, event });
+      log.label = context.awsRequestId;
+
+      log.debug("Request", { context, event });
     },
     onError({ error }) {
       if (error) {
-        const { message, stack, ...details } = error;
-
-        logError(message, { error: { ...details, message, stack } });
-        untag();
+        logError(error);
       }
+
+      log.label = "";
     },
   };
 }

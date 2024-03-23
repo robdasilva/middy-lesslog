@@ -81,7 +81,7 @@
     "typescript-eslint": "^7.3.1"
   },
   "peerDependencies": {
-    "@middy/core": "^2.4.3",
-    "lesslog": "^0.2.3"
+    "@middy/core": ">=2.3.0",
+    "lesslog": ">=1.0.0"
   }
 }
